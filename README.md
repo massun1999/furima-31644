@@ -42,7 +42,7 @@
 | Column  | Type        | Option                        |
 |---------|-------------|-------------------------------|
 | user    | references  | null:false, foreign_key :true |
-| product | references  | null:false                    |
+| product | references  | null:false, foreign_key :true |
 
 - belongs_to :user
 - belongs_to :product
