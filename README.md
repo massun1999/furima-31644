@@ -7,11 +7,12 @@
 | nickname           | string     | null: false |
 | email              | string     | null: false |
 | password           | string     | null: false |
+| encrypted_password | string     | null: false |
 | first_name         | string     | null: false |
 | last_name          | string     | null: false |
 | first_name_ruby    | string     | null: false |
 | last_name_ruby     | string     | null: false |
-| birthday           | ActiveHash | null: false |
+| birthday           | date       | null: false |
 
 ### Association
 - has_many :products
@@ -23,15 +24,14 @@
 | Column           | Type         | Option                       |
 |------------------|--------------|------------------------------|
 | user             | references   | null:false, foreign_key :true|
-| image            | string       | null:false                   |
 | name             | string       | null:false                   |
 | explanation      | text         | null:false                   |
-| category         | ActiveHash   | null:false                   |
-| condition        | ActiveHash   | null:false                   |
-| postage          | ActiveHash   | null:false                   |
-| source           | ActiveHash   | null:false                   |
-| shipping_day     | ActiveHash   | null:false                   |
-| price            | string       | null:false                   |
+| category_id      | integer      | null:false                   |
+| condition_id     | integer      | null:false                   |
+| postage_id       | integer      | null:false                   |
+| source_id        | integer      | null:false                   |
+| shipping_day_id  | integer      | null:false                   |
+| price            | integer      | null:false                   |
 
 ### Association
 - belongs_to :user
@@ -43,9 +43,7 @@
 | Column  | Type        | Option                        |
 |---------|-------------|-------------------------------|
 | user    | references  | null:false, foreign_key :true |
-| date    | integer     | null:false                    |
 | product | references  | null:false                    |
-| credit  | オープンAPI  | null:false                    |
 
 - belongs_to :user
 - belongs_to :product
@@ -53,14 +51,15 @@
 
 ## addressesテーブル
 
-| Column         | Type        | Option      |
-|----------------|-------------|-------------|
-| postal         | integer     | null:false  |
-| prefecture     | ActiveHash  | null:false  |
-| city           | string      | null:false  |
-| house_number   | string      | null:false  |
-| building       | string      |             |
-| phone          | integer     | null:false  |
+| Column         | Type        | Option                       |
+|----------------|-------------|------------------------------|
+| postal         | string      | null:false                   |
+| prefecture_id  | integer     | null:false                   |
+| city           | string      | null:false                   |
+| house_number   | string      | null:false                   |
+| building       | string      |                              |
+| phone          | string      | null:false                   |
+| purchases      | references  | null:false, foreign_key :true|
 
 ### Association
 
