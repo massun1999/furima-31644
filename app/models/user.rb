@@ -14,7 +14,7 @@ class User < ApplicationRecord
            validates :first_name_ruby
          end
          PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
-         validates :password, format: { with: PASSWORD_REGEX }, length: { minimum: 6 }
+         validates :password, format: { with: PASSWORD_REGEX }
          validates :email, uniqueness: true
          validates :birthday, presence: true
 
