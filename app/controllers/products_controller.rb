@@ -5,13 +5,19 @@ class ProductsController < ApplicationController
 
   def new
     if user_signed_in?
-      @Product = Product.new
+      @product = Product.new
     else
       redirect_to new_user_session_path
     end
   end
 
-  def create(product_params)
+  def create
+    @product = Product.new(product_params)
+    if @product.save
+      redirect_to root_path
+    else
+      render :new
+    end
   end
 
   private
