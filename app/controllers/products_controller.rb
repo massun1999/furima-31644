@@ -4,7 +4,11 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @Product = Product.new
+    if user_signed_in?
+      @Product = Product.new
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def create(product_params)
