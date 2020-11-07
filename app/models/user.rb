@@ -18,4 +18,6 @@ class User < ApplicationRecord
          validates :email, uniqueness: true
          validates :birthday, presence: true
 
+         has_many :products
+
 end
