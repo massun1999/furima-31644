@@ -1,18 +1,21 @@
 class Product < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category
-  belongs_to :condition
-  belongs_to :postage
-  belongs_to :source
-  belongs_to :shipping_day
+  belongs_to_active_hash :category
+  belongs_to_active_hash :condition
+  belongs_to_active_hash :postage
+  belongs_to_active_hash :source
+  belongs_to_active_hash :shipping_day
 
 
   belongs_to :user
   has_one_attached :image
 
-  validates :image, presence: true
-  validates :name, presence:true
-  validates :explanation, presence: true
+  with_options presence: true
+    validates :image
+    validates :name
+    validates :explanation
+  end
+
   validates :category_id, numericality: { other_than: 1 } 
   validates :condition_id, numericality: { other_than: 1 } 
   validates :postage_id, numericality: { other_than: 1 } 
