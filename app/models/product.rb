@@ -16,7 +16,7 @@ class Product < ApplicationRecord
     validates :explanation
   end
 
-  with_options presence: true do
+  with_options presence: true, numericality: { other_than: 1 }  do
     validates :category_id
     validates :condition_id 
     validates :postage_id
