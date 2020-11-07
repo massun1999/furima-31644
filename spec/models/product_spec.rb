@@ -103,6 +103,31 @@ RSpec.describe Product, type: :model do
           @product.valid?
           expect(@product.errors.full_messages).to include("User must exist")
         end
+        it "ctegory_idが1だと登録できない" do
+          @product.category_id = 1
+          @product.valid?
+          expect(@product.errors.full_messages).to include("Category must be other than 1")
+        end
+        it "condition_idが1だと登録できない" do
+          @product.condition_id = 1
+          @product.valid?
+          expect(@product.errors.full_messages).to include("Condition must be other than 1")
+        end
+        it "postage_idが1だと登録できない" do
+          @product.postage_id = 1
+          @product.valid?
+          expect(@product.errors.full_messages).to include("Postage must be other than 1")
+        end
+        it "source_idが1だと登録できない" do
+          @product.source_id = 1
+          @product.valid?
+          expect(@product.errors.full_messages).to include("Source must be other than 1")
+        end
+        it "shipping_day_idが1だと登録できない" do
+          @product.shipping_day_id = 1
+          @product.valid?
+          expect(@product.errors.full_messages).to include("Shipping day must be other than 1")
+        end
       end
     end
   end
