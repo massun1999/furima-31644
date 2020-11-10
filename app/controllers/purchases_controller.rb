@@ -1,4 +1,6 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+  before_action :move_to_root, only: [:index]
 
   def index
     @product = Product.find(params[:product_id])
@@ -22,6 +24,7 @@ class PurchasesController < ApplicationController
     else
       render action: :index
     end
+
     
   end
 
@@ -30,6 +33,13 @@ class PurchasesController < ApplicationController
 
   def purchase_params
     params.require(:purchase_address).permit(:postal, :prefecture_id, :city, :house_number, :building, :phone).merge(token: params[:token], product_id: params[:product_id],purchase_id: params[:purchase_id],user_id: current_user.id)
+  end
+
+  def move_to_root
+    @product = Product.find(params[:product_id])
+    if current_user.id == @product.user_id
+      redirect_to root_path
+    end
   end
 
 end
