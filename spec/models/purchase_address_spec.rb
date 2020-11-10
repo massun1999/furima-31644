@@ -7,7 +7,7 @@ RSpec.describe PurchaseAddress, type: :model do
     end
 
     context "配送先が正しく保存されるとき" do
-      it '配送情報が全て正しく入力されていれば保存できる' do
+      it 'tokenと配送情報が全て正しく入力されていれば保存できる' do
         expect(@purchase_address).to be_valid
       end
       it 'buildingが空でも保存できる' do
@@ -86,6 +86,11 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.phone = '080-00-8923'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Phone is invalid")
+      end
+      it 'tokenが空だと保存されない' do
+        @purchase_address.token = ""
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
