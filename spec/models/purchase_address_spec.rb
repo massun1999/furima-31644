@@ -32,16 +32,6 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Postal is invalid")
       end
-      it 'postalのハイフンの前が2桁以下だと保存されない' do
-        @purchase_address.postal = '51-1324'
-        @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Postal is invalid")
-      end
-      it 'postalのハイフンの後が5桁以上だと保存されない' do
-        @purchase_address.postal = '510-12345'
-        @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Postal is invalid")
-      end
       it 'postalのハイフンの後が3桁桁以下だと保存されない' do
         @purchase_address.postal = '510-123'
         @purchase_address.valid?
