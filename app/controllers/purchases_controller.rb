@@ -1,25 +1,19 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index]
   before_action :move_to_root, only: [:index]
+  before_action :find_product, only: [:index, :create]
 
   def index
-    @product = Product.find(params[:product_id])
     @purchase_address = PurchaseAddress.new
   end
 
 
   def create
-    @product = Product.find(params[:product_id])
     @purchase_address = PurchaseAddress.new(purchase_params)
 
     if @purchase_address.valid?
-      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
-      Payjp::Charge.create(
-        amount: Product.find(params[:product_id]).price,
-        card: purchase_params[:token],
-        currency: 'jpy'
-      )
-      @purchase_address.save(purchase_params)
+      pay_purcahse
+      @purchase_address.save
       redirect_to root_path
     else
       render action: :index
@@ -37,9 +31,23 @@ class PurchasesController < ApplicationController
 
   def move_to_root
     @product = Product.find(params[:product_id])
-    if current_user.id == @product.user_id
+    if current_user.id == @product.user_id || @product.purchase.present?
       redirect_to root_path
     end
   end
+
+  def pay_purcahse
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: Product.find(params[:product_id]).price,
+      card: purchase_params[:token],
+      currency: 'jpy'
+    )
+  end
+
+  def find_product
+    @product = Product.find(params[:product_id])
+  end
+
 
 end
