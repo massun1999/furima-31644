@@ -22,11 +22,9 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    product_find
   end
 
   def update
-    product_find
     if @product.update(product_params)
       redirect_to root_path
     else
@@ -35,7 +33,6 @@ class ProductsController < ApplicationController
   end
 
   def show
-    product_find
   end
 
   private
