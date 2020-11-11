@@ -12,7 +12,7 @@ class PurchaseAddress
   end
 
 
-  def save(purchase_params)
+  def save
     purchase = Purchase.create(product_id: product_id, user_id: user_id)
     Address.create(postal: postal, prefecture_id: prefecture_id, city: city, house_number: house_number, building: building, phone: phone, purchase_id: purchase.id)
   end
